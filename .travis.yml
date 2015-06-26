@@ -1,22 +1,14 @@
 language: node_js
 node_js:
-  - "0.11"
-  - "0.10"
-
+    - '0.11'
+    - '0.10'
 before_install:
-  - npm install -g gulp
-  - npm link gulp
-
+    - npm install -g gulp
+    - npm link gulp
 script:
-  - gulp build
-  
+    - gulp build
 deploy:
   provider: releases
   api_key:
-    secure: GEo00/B1iarSzBKg6wViglZjCPsJRiPEB46UQE09wco3aRCGMPXgShpsa3SMGTL7dqKrKybjcEE9z39ruLsLn/Ambg0YnlLTVQzySVoxFpG5JtXRSzT5KRDeLXUI1CJ7ElDnO1O0NEiR/BqsibEDolJ4mDD8eI4EDpMJU5B5xYfpA9iCfDEu/oZUtfW1nB62htjrMCQ9Ah/ILhO8rZoBcwjjlYBtaUPBGnRONl50YzM304X+zdmXbwF2WmUNzbColEF9fr6Wuh3z9OeQ0bbqu6GAsUmOC8lMt8gvtpNk+eOu1X5mIcbAiYG1ehY62ulquHsFz5t2Ku+MZganwZPrgLQY5HsQD2kBIATNVLgL4g+MmzPAHog3jq+4TMigxigVYSSw7nMuwhojz2jEG+xcXQRMPLXijDVWme6YLKQE2BqkD9ffDh0E8coo+GeC5Vvewn3U5zZ9wIZ4ByzonHC5Q0y7fQvrQL6/QIrOc+OfunyfbPLZX/LBDXNt8uQ+BB+SrPZm9Xz2IjE4yi7XQf6jWVGFML1Qcs0OPyRV04Bp27KOiXuEY+ybeANOEU2N+nB4Dex3UIG+uuYZGDLZRdao9vlkiI+HkYNyhAParzOtODcX1bk+N4fEFqUyn2Q7V5BKG8TSYFgbvvrXo5xpgwBaRH/JoppEp16fJaqWatfUs4E=
-  file: 
-    - dist/*
-    - bower.json
-  on:
-    repo: ggiovinazzo/angular-data-export-bower
-    branch: 0.1.0-a
+    secure: G39HvGk+G6pEtzlqmONl1FJYbclySOk8WuUYmM+l9HKK+8yqgOfD2ugvspYiwraCF6qsXU56D/vkaudVfX0ZWjI7bLMLIS7CgEuDv9GUVaKopbDXueOhx3rbH/f4N9J/1xeEmvrRh00WVYPy8Is61VEhWijYm5HClQOuodi7JTnjGgQXzoAECkER+lgToT8c8acVvOgyuMEuhCTaOFvjWx3coybD6tu2Ox5vrnbcbApeu7C0qQHLrZuBMNvYIFV/qbKmEopLb116+A517MQocu5UOkxdSee8fFRcFybWLw0TwOKtgWban7fZu5nRb7qXVwrfsDSUuE7AXtaNv8f9QDm9o3HHNPAKgPx7BDJU3shQ0V9WoN+jjQ4lSkPgt4ZaysnzSlNQEDNAfndVc2oILyTaaTnB2kbQz6ubS3Jk+Qx47PTr9FQQlUOrB1bKotgyiA1hmTRaQnkVgFle/rtceZL93lBu9ztkUexHvKptOxnptPM4qOOwVc7OLLKzwFdyzq2mI1wa4Q5NXRPYL8gvq1A6l5msJjOZDZ70bVRdNwUtC+uX+rmmT8QgpK9zRBmGOtbu/7Yh0xH292YTyGFF1XwjlYf385MvfsZX5Pd039ldF4wJTMD0yhpeDkdZDvQg7LZG035/gN61m8qozO5rGtyTc+FDuMVHQg+eToG5EWw=
+  file: dist/*
