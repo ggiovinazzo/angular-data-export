@@ -2,6 +2,10 @@
   "name": "angular-data-export",
   "version": "0.1.0-a",
   "description": "__Contributors:__",
+  "config": {
+    "deploy": "github.com/ggiovinazzo/angular-data-export-bower.git",
+    "deployFolder": "angular-data-export-bower"
+  },
   "directories": {
     "test": "test"
   },
@@ -27,6 +31,10 @@
     "del": "~1.2.0",
     "gulp-uglify": "~1.2.0",
     "gulp-jshint": "~1.11.0",
-    "gulp": "~3.9.0"
+    "gulp": "~3.9.0",
+    "minimist": "~1.1.1",
+    "gulp-if": "~1.2.5",
+    "gulp-git": "~1.2.4",
+    "gulp-shell": "~0.4.2"
   }
 }
