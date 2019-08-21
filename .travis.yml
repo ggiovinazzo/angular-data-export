@@ -4,7 +4,7 @@ node_js:
   - '0.10'
 before_install:
   - npm install -g gulp@3.9.1
-  - npm link gulp@3.9.1
+  - npm link gulp
 script:
   - gulp build
 after_success:
