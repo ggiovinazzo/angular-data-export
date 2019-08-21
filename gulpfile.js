@@ -1,59 +1,59 @@
-var gulp     = require('gulp'),
-    jshint   = require('gulp-jshint'),
-    uglify   = require('gulp-uglify'),
-    concat   = require('gulp-concat'),
-    del      = require('del'),
-    pkg      = require('./package.json'),
-    rename   = require("gulp-rename"),
-    minimist = require('minimist'),
-    shell    = require('gulp-shell');
+var gulp = require('gulp'),
+  jshint = require('gulp-jshint'),
+  uglify = require('gulp-uglify'),
+  concat = require('gulp-concat'),
+  del = require('del'),
+  pkg = require('./package.json'),
+  rename = require("gulp-rename"),
+  minimist = require('minimist'),
+  shell = require('gulp-shell');
 
 var argOptions = {
   string: ['apikey', 'build']
 };
 
 var options = minimist(process.argv.slice(2), argOptions);
-var config  = {
+var config = {
   buildFolder: './build',
-  deploy     : [
+  deploy: [
     './build/*.js',
     'bower.json'
   ],
-  git        : 'https://ggiovinazzo:' + options.apikey + '@' + pkg.config.deploy
+  git: 'https://ggiovinazzo:' + options.apikey + '@' + pkg.config.deploy
 };
 
-gulp.task('build', gulp.series(function () {
+gulp.task('build', function () {
   return gulp.src('./src/*.js')
     .pipe(concat(pkg.name + '.js'))
     .pipe(gulp.dest(config.buildFolder))
     .pipe(rename(pkg.name + '.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(config.buildFolder));
-}));
+});
 
-gulp.task('clean-deploy', gulp.series(function (cb) {
+gulp.task('clean-deploy', function (cb) {
   del([pkg.config.deployFolder], cb);
-}));
+});
 
-gulp.task('clone-deploy', gulp.series('clean-deploy', function () {
+gulp.task('clone-deploy', ['clean-deploy'], function () {
   return gulp.src('')
     .pipe(
       shell(['git clone https://' + pkg.config.deploy])
     );
-}));
+});
 
-gulp.task('copy-deploy', gulp.series('clone-deploy', function () {
+gulp.task('copy-deploy', ['clone-deploy'], function () {
   return gulp.src(config.deploy)
     .pipe(
       gulp.dest(pkg.config.deployFolder)
     );
-}));
+});
 
-gulp.task('git-deploy', gulp.series('copy-deploy', function () {
+gulp.task('git-deploy', ['copy-deploy'], function () {
   process.chdir(pkg.config.deployFolder)
-}));
+});
 
-gulp.task('deploy', gulp.series('git-deploy', function () {
+gulp.task('deploy', ['git-deploy'], function () {
   return gulp.src('')
     .pipe(
       shell([
@@ -68,4 +68,5 @@ gulp.task('deploy', gulp.series('git-deploy', function () {
         'git push origin master'
       ])
     );
-}));
+
+});
