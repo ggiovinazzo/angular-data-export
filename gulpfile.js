@@ -1,25 +1,25 @@
-var gulp = require('gulp'),
-  jshint = require('gulp-jshint'),
-  uglify = require('gulp-uglify'),
-  concat = require('gulp-concat'),
-  del = require('del'),
-  pkg = require('./package.json'),
-  rename = require("gulp-rename"),
-  minimist = require('minimist'),
-  shell = require('gulp-shell');
+var gulp     = require('gulp'),
+    jshint   = require('gulp-jshint'),
+    uglify   = require('gulp-uglify-es').default,
+    concat   = require('gulp-concat'),
+    del      = require('del'),
+    pkg      = require('./package.json'),
+    rename   = require("gulp-rename"),
+    minimist = require('minimist'),
+    shell    = require('gulp-shell');
 
 var argOptions = {
   string: ['apikey', 'build']
 };
 
 var options = minimist(process.argv.slice(2), argOptions);
-var config = {
+var config  = {
   buildFolder: './build',
-  deploy: [
+  deploy     : [
     './build/*.js',
     'bower.json'
   ],
-  git: 'https://ggiovinazzo:' + options.apikey + '@' + pkg.config.deploy
+  git        : 'https://ggiovinazzo:' + options.apikey + '@' + pkg.config.deploy
 };
 
 gulp.task('build', function () {
@@ -27,7 +27,10 @@ gulp.task('build', function () {
     .pipe(concat(pkg.name + '.js'))
     .pipe(gulp.dest(config.buildFolder))
     .pipe(rename(pkg.name + '.min.js'))
-    .pipe(uglify())
+    .pipe(uglify().on('error', function (uglify) {
+      console.error(uglify);
+      this.emit('end');
+    }))
     .pipe(gulp.dest(config.buildFolder));
 });
 

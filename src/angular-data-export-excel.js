@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    let app = angular.module('angular.data.export.excel', []);
+    const app = angular.module('angular.data.export.excel', []);
 
     function DataTransformExcel($filter) {
 
@@ -25,13 +25,13 @@
             let returnValue = '';
             switch (typeof (o)) {
                 case 'function':
-                    returnValue = value();
+                    returnValue = o();
                     break;
                 case 'string':
                 case 'number':
                 case 'object':
                 default:
-                    returnValue = value;
+                    returnValue = o;
 
             }
             return returnValue;

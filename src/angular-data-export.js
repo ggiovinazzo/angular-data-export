@@ -1,18 +1,18 @@
-(function() {
+(function () {
     'use strict';
 
-    let app = angular.module('angular.data.export',
-        [
-            'base64',
-            'angular.download.service'
-        ]
+    const app = angular.module('angular.data.export',
+      [
+          'base64',
+          'angular.download.service'
+      ]
     );
-    
-    function DataTransform($base64,$injector,fileDownloadService){
+
+    function DataTransform($base64, $injector, fileDownloadService) {
 
         this.mapping = null;
-        this.module = null;
-        
+        this.module  = null;
+
         /**
          * @ngdoc function
          * @name DataTransform.setDataMapping
@@ -21,10 +21,10 @@
          * @description Indicates the field that need to be transformed
          * @param {string} module used to perform data transform
          */
-        this.setDataMapping = function(mapping){
+        this.setDataMapping = function (mapping) {
             this.mapping = mapping;
         };
-        
+
         /**
          * @ngdoc function
          * @name DataTransform.transform
@@ -35,13 +35,13 @@
          * @param {string} module used to perform data transform
          * @returns {string}
          */
-        this.transform = function(data,module){
+        this.transform = function (data, module) {
             this.module = $injector.get(module);
-            if(this.mapping != null)
+            if (this.mapping != null)
                 this.module.setMapping(this.mapping);
             return this.module.transform(data);
         };
-        
+
         /**
          * @ngdoc function
          * @name DataTransform.transformAndDownload
@@ -52,23 +52,23 @@
          * @param {string} module used to perform data transform
          * @param {string} filename for the download
          */
-        this.transformAndDownload = function(data,module,filename){
-            let tData = this.transform(data,module);
-            if(filename==undefined)
+        this.transformAndDownload = function (data, module, filename) {
+            let tData = this.transform(data, module);
+            if (filename == undefined)
                 filename = 'exportData' + this.module.getFileExtension();
-            fileDownloadService.setMimeType( this.module.getMimeType() );
-            fileDownloadService.downloadFile( filename, tData );
+            fileDownloadService.setMimeType(this.module.getMimeType());
+            fileDownloadService.downloadFile(filename, tData);
         }
-        
+
     }
-    
+
     app.factory('dataExportService', [
         '$base64',
         '$injector',
         'fileDownloadService',
-        function($base64,$injector,fileDownloadService){
-            return new DataTransform($base64,$injector,fileDownloadService);
+        function ($base64, $injector, fileDownloadService) {
+            return new DataTransform($base64, $injector, fileDownloadService);
         }
     ]);
-    
+
 })();
