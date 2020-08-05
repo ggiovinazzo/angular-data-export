@@ -3,7 +3,7 @@ node_js:
   - '10.15.2'
 before_install:
   - npm install -g npm@latest
-  - npm install -g gulp@3.9.1
+  - npm install -g gulp@4.0.2
   - npm link gulp
 script:
   - gulp build
