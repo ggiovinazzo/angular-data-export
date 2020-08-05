@@ -39,7 +39,7 @@ gulp.task('clean-deploy', gulp.series(function (cb) {
 }));
 
 gulp.task('clone-deploy', gulp.series('clean-deploy', function () {
-  return gulp.src('')
+  return gulp.src('.', {allowEmpty: true})
     .pipe(
       shell(['git clone https://' + pkg.config.deploy])
     );
