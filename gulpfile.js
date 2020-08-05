@@ -35,7 +35,7 @@ gulp.task('build', gulp.series(function () {
 }));
 
 gulp.task('clean-deploy', gulp.series(function (cb) {
-  del([pkg.config.deployFolder], cb);
+  return del([pkg.config.deployFolder], cb);
 }));
 
 gulp.task('clone-deploy', gulp.series('clean-deploy', function () {
@@ -52,8 +52,9 @@ gulp.task('copy-deploy', gulp.series('clone-deploy', function () {
     );
 }));
 
-gulp.task('git-deploy', gulp.series('copy-deploy', function () {
-  process.chdir(pkg.config.deployFolder)
+gulp.task('git-deploy', gulp.series('copy-deploy', function (done) {
+  process.chdir(pkg.config.deployFolder);
+  done();
 }));
 
 gulp.task('deploy', gulp.series('git-deploy', function () {
