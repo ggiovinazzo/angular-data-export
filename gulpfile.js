@@ -58,7 +58,7 @@ gulp.task('git-deploy', gulp.series('copy-deploy', function (done) {
 }));
 
 gulp.task('deploy', gulp.series('git-deploy', function () {
-  return gulp.src('')
+  return gulp.src('.', {allowEmpty: true})
     .pipe(
       shell([
         'git config --global user.email "builds@travis-ci.com"',
