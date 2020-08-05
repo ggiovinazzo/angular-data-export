@@ -22,7 +22,7 @@ var config  = {
   git        : 'https://ggiovinazzo:' + options.apikey + '@' + pkg.config.deploy
 };
 
-gulp.task('build', function () {
+gulp.task('build', gulp.series(function () {
   return gulp.src('./src/*.js')
     .pipe(concat(pkg.name + '.js'))
     .pipe(gulp.dest(config.buildFolder))
@@ -32,31 +32,31 @@ gulp.task('build', function () {
       this.emit('end');
     }))
     .pipe(gulp.dest(config.buildFolder));
-});
+}));
 
-gulp.task('clean-deploy', function (cb) {
+gulp.task('clean-deploy', gulp.series(function (cb) {
   del([pkg.config.deployFolder], cb);
-});
+}));
 
-gulp.task('clone-deploy', ['clean-deploy'], function () {
+gulp.task('clone-deploy', gulp.series('clean-deploy', function () {
   return gulp.src('')
     .pipe(
       shell(['git clone https://' + pkg.config.deploy])
     );
-});
+}));
 
-gulp.task('copy-deploy', ['clone-deploy'], function () {
+gulp.task('copy-deploy', gulp.series('clone-deploy', function () {
   return gulp.src(config.deploy)
     .pipe(
       gulp.dest(pkg.config.deployFolder)
     );
-});
+}));
 
-gulp.task('git-deploy', ['copy-deploy'], function () {
+gulp.task('git-deploy', gulp.series('copy-deploy', function () {
   process.chdir(pkg.config.deployFolder)
-});
+}));
 
-gulp.task('deploy', ['git-deploy'], function () {
+gulp.task('deploy', gulp.series('git-deploy', function () {
   return gulp.src('')
     .pipe(
       shell([
@@ -72,4 +72,4 @@ gulp.task('deploy', ['git-deploy'], function () {
       ])
     );
 
-});
+}));
