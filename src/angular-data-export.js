@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var app = angular.module('angular.data.export',
+    let app = angular.module('angular.data.export',
         [
             'base64',
             'angular.download.service'
@@ -53,7 +53,7 @@
          * @param {string} filename for the download
          */
         this.transformAndDownload = function(data,module,filename){
-            var tData = this.transform(data,module);
+            let tData = this.transform(data,module);
             if(filename==undefined)
                 filename = 'exportData' + this.module.getFileExtension();
             fileDownloadService.setMimeType( this.module.getMimeType() );
